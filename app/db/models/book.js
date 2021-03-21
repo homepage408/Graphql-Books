@@ -10,7 +10,7 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       // define association here
       book.belongsTo(models.write);
-      // book.hasMany(models.categories);
+      book.belongsTo(models.category);
     }
   }
   book.init(
@@ -25,6 +25,7 @@ module.exports = (sequelize, DataTypes) => {
     {
       sequelize,
       modelName: "book",
+      paranoid: true,
     }
   );
   return book;
