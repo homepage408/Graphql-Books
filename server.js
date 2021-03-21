@@ -1,9 +1,9 @@
 const express = require("express");
 const port = process.env.PORT || 3000;
 const { ApolloServer } = require("apollo-server-express");
-const { typeDefs } = require("./app/typeDefs");
-const { resolvers } = require("./app/resolvers");
-const { db } = require("./app/db/models");
+const { typeDefs } = require("./app/schema/typeDefs");
+const { resolvers } = require("./app/schema/resolvers");
+const db = require("./app/db/models");
 const app = express();
 
 app.use(express.json());
@@ -11,7 +11,7 @@ app.use(express.json());
 const server = new ApolloServer({
   typeDefs,
   resolvers,
-  context: db,
+  context: { db },
   playground: {
     settings: {
       "editor.theme": "dark",
