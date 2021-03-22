@@ -41,7 +41,17 @@ const typeDefs = gql`
         books: [Book]
     }
 
+    type AuthPayload {
+        id: Int!
+        username: String
+        email: String
+        token: String
+    }
+
     type Mutation {
+        # Login
+        login(email: String, password: String): AuthPayload
+
         # Book
         createBook(
             writeId: Int
