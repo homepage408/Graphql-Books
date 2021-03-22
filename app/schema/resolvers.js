@@ -2,16 +2,18 @@ const resolvers = {
   Query: {
     // Books
     async books(parent, _, { db }) {
-      return await db.book.findAll();
+      return await db.book.findAll({
+        include : db.category
+      });
     },
 
-    async findBooksWriteCategory(parent, _, { db }) {
+    async findBooksWriterCategory(parent, _, { db }) {
       return await db.book.findAll({
         include: [db.category, db.write],
       });
     },
 
-    async findOneBook(parent, args, { db }) {
+    async book(parent, args, { db }) {
       return await db.book.findOne({
         where: { id: args.id },
         include: [db.category, db.write],
@@ -25,7 +27,7 @@ const resolvers = {
       });
     },
 
-    async findOneWrite(parent, args, { db }) {
+    async writer(parent, args, { db }) {
       return await db.write.findOne({
         where: { id: args.id },
         include: {
@@ -34,10 +36,10 @@ const resolvers = {
       });
     },
 
-    async findWritesBook(parent, _, { db }) {
-      return await db.write.findAll({
-        include: [db.book],
-      });
+    async findWritersBook(parent, _, { db }) {
+      const data = await db.write.findAll();
+      console.log(data)
+      return data 
     },
 
     // category
@@ -45,7 +47,7 @@ const resolvers = {
       return await db.category.findAll();
     },
 
-    async findOneCategories(parent, args, { db }) {
+    async category(parent, args, { db }) {
       return await db.category.findOne({
         where: { id: args.id },
       });

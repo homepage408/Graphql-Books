@@ -2,19 +2,19 @@
 const faker = require("faker");
 faker.locale = "id_ID";
 
-// const writes = [...Array(5)].map((writes) => {
-//   return {
-//     fullname: faker.name.findName(),
-//     email: faker.internet.email(),
-//     photo: "",
-//     createdAt: faker.date.recent(),
-//     updatedAt: faker.date.recent(),
-//   };
-// });
+const writes = [...Array(5)].map((writes) => {
+  return {
+    fullname: faker.name.findName(),
+    email: faker.internet.email(),
+    photo: "",
+    createdAt: faker.date.recent(),
+    updatedAt: faker.date.recent(),
+  };
+});
 
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    // await queryInterface.bulkInsert("writes", writes);
+    await queryInterface.bulkInsert("writes", writes);
     /**
      * Add seed commands here.
      *

@@ -1,81 +1,82 @@
 const { gql } = require("apollo-server-express");
+
 const typeDefs = gql`
-  type Query {
-    # Books
-    books: [Books]
-    findBooksWriteCategory: [Books]
-    findOneBook(id: Int!): Books
+    type Query {
+        # Books
+        books: [Book]
+        findBooksWriterCategory: [Book]
+        book(id: Int!): Book
 
-    # write
-    writers: [Writers]
-    findOneWrite(id: Int!): Writers
-    findWritesBook: Writers
+        # write
+        writers: [Writer]
+        writer(id: Int!): Writer
+        findWritersBook: [Writer]
 
-    # category
-    categories: [Categories]
-    findOneCategories(id: Int!): Categories
-  }
+        # category
+        categories: [Category]
+        category(id: Int!): Category
+    }
 
-  type Writers {
-    id: Int
-    fullname: String
-    email: String
-    photo: String
-    books: [Books]
-  }
+    type Writer {
+        id: Int
+        fullname: String
+        email: String
+        photo: String
+        books: [Book]
+    }
 
-  type Books {
-    id: Int
-    writeId: Int
-    categoryId: Int
-    title: String
-    description: String
-    write: Writers
-    category: Categories
-  }
+    type Book {
+        id: Int
+        writeId: Int
+        categoryId: Int
+        title: String
+        description: String
+        writer: Writer
+        category: Category
+    }
 
-  type Categories {
-    id: Int!
-    category: String
-    books: [Books]
-  }
+    type Category {
+        id: Int!
+        category: String
+        books: [Book]
+    }
 
-  type Mutation {
-    # Book
-    createBook(
-      writeId: Int
-      categoryId: Int
-      title: String
-      description: String
-    ): Books
+    type Mutation {
+        # Book
+        createBook(
+            writeId: Int
+            categoryId: Int
+            title: String
+            description: String
+        ): Book
 
-    updateBook(
-      id: Int
-      writeId: Int
-      categoryId: Int
-      title: String
-      description: String
-    ): Books
+        updateBook(
+            id: Int
+            writeId: Int
+            categoryId: Int
+            title: String
+            description: String
+        ): Book
 
-    deleteBook(id: Int): Books
+        deleteBook(id: Int): Book
 
-    # Write
-    createWriter(fullname: String, email: String, photo: String): Writers
-    updateWriter(
-      id: Int
-      fullname: String
-      email: String
-      photo: String
-    ): Writers
+        # Write
+        createWriter(fullname: String, email: String, photo: String): Writer
+        updateWriter(
+            id: Int
+            fullname: String
+            email: String
+            photo: String
+        ): Writer
 
-    deleteWriter(id: Int): Writers
+        deleteWriter(id: Int): Writer
 
-    # Category
-    createCategory(category: String): Categories
-    updateCategory(id: Int, category: String): Categories
-    deleteCategory(id: Int): Categories
-  }
+        # Category
+        createCategory(category: String): Category
+        updateCategory(id: Int, category: String): Category
+        deleteCategory(id: Int): Category
+    }
 `;
 module.exports = {
-  typeDefs,
+    typeDefs,
 };
